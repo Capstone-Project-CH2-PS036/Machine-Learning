@@ -1,5 +1,4 @@
 # Import necessary libraries
-import urllib.request
 import zipfile
 import tensorflow as tf
 import matplotlib.pylab as plt
@@ -7,12 +6,7 @@ import numpy as np
 import joblib
 import keras.utils as image
 from keras.preprocessing.image import ImageDataGenerator
-from keras.optimizers import RMSprop
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
-from tqdm import tqdm
-# from keras.preprocessing import image
-from tkinter import filedialog
-from tkinter import Tk
 
 # Define a function to solve
 def solution():
@@ -138,32 +132,41 @@ def saved(model):
     # Load TFLite model and allocate tensors.
 
 # Function to classify an input image using the trained model
-def classify_image(image_path):
+def preprocess_image(image_path):
     # Load and preprocess the input image
     img = image.load_img(image_path, target_size=(150, 150))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array /= 255.0  # Rescale the pixel values to the range [0, 1]
+    img_array /= 255.0
 
     model = tf.keras.models.load_model('model.h5')
-    #v model = joblib.load('model.pkl')
-    # model = tf.keras.models.load_model('model.h5')
     # Make predictions using the trained model
 
     predictions = model.predict(img_array)
     # Map the predictions to class labels
-    class_labels = ['Putih', 'Merah', 'Jingga', 'Kuning', 'Hitam', 'Hijau', 'Coklat', 'Biru']
+    class_labels = ["Biru, Warna biru pada urine tidak umum dan mungkin merupakan hasil dari konsumsi pewarna makanan tertentu. Namun, jika warna biru terus menerus muncul, itu bisa menunjukkan masalah dengan ginjal atau saluran kemih. Disarankan untuk berkonsultasi dengan profesional kesehatan.",
+                    "Coklat, Warna coklat pada urine bisa disebabkan oleh dehidrasi, konsumsi makanan tertentu, atau masalah dengan hati. Tetapi, coklat juga dapat menjadi tanda adanya darah dalam urine, yang memerlukan perhatian medis segera.",
+                    "Hijau, Warna hijau pada urine biasanya disebabkan oleh konsumsi makanan atau suplemen tertentu. Namun, jika hijau terus muncul dan tidak dapat dijelaskan oleh faktor diet, itu bisa mengindikasikan masalah kesehatan seperti infeksi atau penyakit hati. Konsultasikan dengan dokter untuk evaluasi lebih lanjut.",
+                    "Hitam, Urine hitam dapat menjadi tanda adanya darah teroksidasi atau masalah hati. Beberapa jenis makanan dan obat-obatan juga dapat menyebabkan urine hitam. Jika urine hitam terus muncul, segera hubungi profesional kesehatan.",
+                    "Jingga, Warna jingga pada urine mungkin disebabkan oleh dehidrasi atau konsumsi vitamin B kompleks. Namun, jika jingga terus muncul tanpa alasan yang jelas, itu bisa menunjukkan masalah dengan hati atau saluran empedu. Periksakan ke dokter untuk evaluasi lebih lanjut.",
+                    "Kuning, Warna kuning pada urine biasanya normal dan disebabkan oleh pigmen urine yang disebut urobilin. Namun, warna kuning yang sangat gelap atau kuning kecoklatan bisa menunjukkan dehidrasi. Pastikan untuk cukup minum air.",
+                    "Merah, Urine merah dapat disebabkan oleh keberadaan darah. Ini bisa disebabkan oleh infeksi saluran kemih, batu ginjal, atau masalah lain pada ginjal atau kandung kemih. Segera cari bantuan medis jika urine berwarna merah.",
+                    "Putih, Urine yang putih atau bening (transparan) umumnya dianggap normal dan sehat. Ini menunjukkan bahwa Anda mungkin sedang minum cukup air, dan ginjal Anda berfungsi dengan baik untuk menyaring kelebihan air dalam tubuh. Peningkatan konsumsi air dapat menghasilkan urine yang lebih transparan."
+                    ]
+
+    confidence_score = predictions.max() * 100
+
     predicted_class_index = np.argmax(predictions)
     predicted_class_label = class_labels[predicted_class_index]
 
-    return predicted_class_label
+    print(f'The predicted class is: {predicted_class_label}')
+    print("Confidence score (accuracy): {:.2f}%".format(confidence_score))
+
+    return img_array
 
 if __name__ == '__main__':
     # DO NOT CHANGE THIS CODE
-    image_path = "D:/Project/capstone/gambar/baru.jpg"
-    model = solution()
-    saved(model)
-
-    # Test image classification
-    # predicted_label = classify_image(image_path)
-    # print(f"The predicted label for the image is: {predicted_label}")
+    image_path = "image/hitam.jpg"
+    #model = solution()
+    #saved(model)
+    predicted_label = preprocess_image(image_path)
