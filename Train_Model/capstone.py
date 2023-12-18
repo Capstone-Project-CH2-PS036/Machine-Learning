@@ -166,7 +166,7 @@ def preprocess_image(image_path):
 
 if __name__ == '__main__':
     # DO NOT CHANGE THIS CODE
-    image_path = "image/hitam.jpg"
-    #model = solution()
-    #saved(model)
+    image_path = "image/baru.jpg"
+    model = solution()
+    saved(model)
     predicted_label = preprocess_image(image_path)
