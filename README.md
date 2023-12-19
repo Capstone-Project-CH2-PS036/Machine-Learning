@@ -28,3 +28,9 @@ To overcome the limitations of the dataset, the machine learning team used data 
 The machine learning model developed by the team used a 3-layer convolutional neural network (CNN) image classification technique. CNN is a machine learning technique that can be used for image classification. CNN works by learning the important features of an image to distinguish between different categories. The CNN model developed by the team had an accuracy of over 95% in urine color classification.
 
 The machine learning team has successfully developed a machine learning model that can analyze urine color with high accuracy. This model has the potential to improve the accuracy and efficiency of urine color examinations for detecting health conditions.
+
+# Machine Learning Team Member
+- (ML) M120BSY0755 – Abdul Jabbar Robbani – Telkom Institute of Technology Purwokerto
+- (ML) M315BSY0224 – Indra Juliansyah Putra - University of Sriwijaya
+- (ML) M120BSX0754 – Fifi Alfiaturrohmah – Telkom Institute of Technology Purwokerto
+
